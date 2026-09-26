@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://jovial-pony-1450fd.netlify.app"><b>🌐 Saytni ochish</b></a> ·
+  <a href="https://mywaytoenglish.netlify.app"><b>🌐 Saytni ochish</b></a> ·
   <a href="https://t.me/My_Waytoenglish_bot"><b>🤖 Telegram bot</b></a>
 </p>
 
