@@ -841,7 +841,7 @@ var SB=null, SERVER=false, UID=null, serverToday=null, SRV=null, onHome=false;
 try{ if(window.supabase&&window.supabase.createClient){ SB=window.supabase.createClient(SB_URL,SB_KEY); SERVER=true; } }catch(e){ SERVER=false; }
 function iso2d(x){var p=String(x).slice(0,10).split("-");return (+p[0])+"-"+(+p[1])+"-"+(+p[2]);}
 var ERRS={too_fast:"Juda tez! Bir necha soniyadan keyin qayta urinib ko'ring.",cooldown:"Imtihonni 10 daqiqadan keyin qayta topshirishingiz mumkin.",
- not_enough_money:"Hisobingizda yetarli dollar yo'q.",exam_required:"Avval daraja imtihonidan 80%+ oling.",freezes_full:"Muzlatishlar to'la.",
+ not_enough_money:"Hisobingizda yetarli dollar yo'q.",exam_required:"Avval daraja imtihonidan 80%+ oling.",progress_required:"Avval shu darajadagi topshiriqlarning 90% ini bajaring.",freezes_full:"Muzlatishlar to'la.",
  plan_incomplete:"Reja hali 100% bajarilmagan.",not_available:"Bu mukofot hozir mavjud emas.",limit_reached:"Bugun 10 ta gap yozildi.",
  duplicate:"Bu gapni allaqachon yozgansiz.",word_missing:"Gapda berilgan so'z bo'lishi kerak.",invalid_input:"Ma'lumot noto'g'ri yuborildi.",
  not_authenticated:"Qaytadan tizimga kiring.",max_level:"Siz eng yuqori darajadasiz."};
@@ -1197,20 +1197,24 @@ function startExamS(level){
   runTestS("exam",level,{title:tierLabel(level)+" imtihoni",minutes:EXAM_MIN,onQuit:function(){renderExamIntro(level);},onFinish:function(res,fin){
     var arr=res.map(function(x){return {ok:x.ok,q:{topic:x.it.topic||"Lug'at",lesson:x.it.lid?findLesson(x.it.lid):null}};});
     while(arr.length<fin.total) arr.push({ok:false,q:{topic:"Javobsiz qolgan savollar",lesson:null}});
-    examResult(level,arr); syncAndRefresh();
+    examResult(level,arr);
+    if(fin.promoted){var a=cur();a.level=fin.promoted;if(a.unlocked.indexOf(fin.promoted)===-1)a.unlocked.push(fin.promoted);
+      viewLevel=fin.promoted;save();refreshChip();celebrate(fin.promoted,level);}
+    syncAndRefresh();
   }});
 }
 function startPlacementS(){
-  var li=0,total=[];
-  function block(){
-    var L=LEVELS[li].id;
-    runTestS("placement",L,{title:"Daraja aniqlash: "+tierLabel(L),minutes:0,onQuit:renderHome,onFinish:function(res,fin){
-      var ok=fin.first_ok; total.push({level:L,ok:ok,n:fin.total});
-      if(fin.pass&&li<LEVELS.length-1){li++;block();}
-      else viaServer("apply_placement",{p_level:L},function(){placementResult(total,fin.pass);});
-    }});
-  }
-  block();
+  var L=LEVELS[0].id, nx=LEVELS[1].id;
+  runTestS("placement",L,{title:"Daraja aniqlash: "+tierLabel(L),minutes:0,onQuit:renderHome,onFinish:function(res,fin){
+    var total=[{level:L,ok:fin.first_ok,n:fin.total}];
+    if(fin.pass) viaServer("apply_placement",{p_level:nx},function(r,e){
+      if(e) return;
+      if(r&&r.granted){var a=cur();a.placement={level:nx,date:new Date().toISOString()};a.level=nx;a.unlocked=LEVELS.slice(0,2).map(function(l){return l.id;});
+        viewLevel=nx;save();refreshChip();renderHome();celebrate(nx,L,false,true);}
+      else placementResult(total,true);
+    });
+    else viaServer("apply_placement",{p_level:L},function(){placementResult(total,false);});
+  }});
 }
 
 /* =================== STORAGE =================== */
@@ -1368,7 +1372,7 @@ function renderHome(){econSync();
     h("button",{class:"tile",style:"--c:#E0457B",onclick:renderPractice},h("span",{class:"ico"},"🧩"),h("b",null,"Mashqlar"),h("span",{class:"meta"},lessons.length?"6 xil tur":"Tez orada")),
     h("button",{class:"tile",style:"--c:#E8692B",onclick:renderBlitzIntro},h("span",{class:"ico"},"⚡"),h("b",null,"So'z Blits"),h("span",{class:"meta"},"Rekord: "+a.blitz.best)),
     h("button",{class:"tile",style:"--c:#19B8A8",onclick:renderSpeaking},h("span",{class:"ico"},"🗣️"),h("b",null,"Speaking"),h("span",{class:"meta"},SPEAK.length+" ta mavzu")),
-    h(hasExam(V)?"button":"div",{class:"tile"+(hasExam(V)?"":" soon-tile"),style:"--c:#5B2BC9",onclick:hasExam(V)?function(){renderExamIntro(V);}:null},h("span",{class:"ico"},"📝"),h("b",null,V+" imtihoni"),h("span",{class:"meta"},(a.examBest[V]||0)>=EXAM_PASS?"✓ O'tildi, "+a.examBest[V]+"%":"O'tish: "+EXAM_PASS+"%")),
+    h(hasExam(V)?"button":"div",{class:"tile"+(hasExam(V)?"":" soon-tile"),style:"--c:#5B2BC9",onclick:hasExam(V)?function(){renderExamIntro(V);}:null},h("span",{class:"ico"},"📝"),h("b",null,V+" imtihoni"),h("span",{class:"meta"},(a.examBest[V]||0)>=EXAM_PASS?"✓ O'tildi, "+a.examBest[V]+"%":!examReady(V)?"Bajarildi: "+levelProgress(V).pct+"% / "+EXAM_GATE+"%":"Tayyor! O'tish: "+EXAM_PASS+"%")),
     h("button",{class:"tile",style:"--c:#D6246E",onclick:renderIelts},h("span",{class:"ico"},"🎓"),h("b",null,"IELTS"),h("span",{class:"meta"},IELTS.length+" dars, 2 vosita")),
     h("button",{class:"tile",style:"--c:#0E7AE0",onclick:function(){renderPlacementIntro(false);}},h("span",{class:"ico"},"🎯"),h("b",null,"Daraja testi"),h("span",{class:"meta"},a.placement?tierLabel(a.placement.level):"Bir marta bepul")));
   show(
@@ -1406,12 +1410,14 @@ function renderProfile(){
     h("div",{class:"daily"},"Bugun yig'ildi: "+money(a.daily.date===today()?a.daily.earned:0)+" / "+money(DAILY_CAP)));
   var path=h("div",{class:"lpath"});
   LEVELS.forEach(function(l,i){var open=a.unlocked.indexOf(l.id)!==-1, cur_=l.id===a.level, isNext=i===idx+1;
-    path.appendChild(h(open?"button":"div",{class:"lp"+(cur_?" cur":open?" open":isNext?" nxt":""),title:l.name+" "+TIERS[l.id].name,onclick:open?function(){viewLevel=l.id;renderHome();}:null},h("span",{class:"lp-o tc t-"+l.id},TIERS[l.id].icon),h("small",null,l.id)));});
+    path.appendChild(h(open?"button":"div",{class:"lp"+(cur_?" cur":open?" open":isNext?" nxt":""),title:l.name+" "+TIERS[l.id].name,onclick:open?function(){viewLevel=l.id;renderHome();}:null},h("span",{class:"lp-o tc t-"+l.id},TIERS[l.id].icon),h("small",null,l.id),open?h("small",null,levelProgress(l.id).pct+"%"):null));});
   var buy=null;
-  if(next){var hasMoney=a.balance>=next.price, best=a.examBest[a.level]||0, passed=best>=EXAM_PASS;
+  if(next){var hasMoney=a.balance>=next.price, best=a.examBest[a.level]||0, passed=best>=EXAM_PASS, lpr=levelProgress(a.level);
     buy=h("div",{class:"buy"},h("div",{class:"checks"},
+      h("div",{class:"chk"+(lpr.pct>=EXAM_GATE?" ok":"")},h("span",null,lpr.pct>=EXAM_GATE?"✓":"○"),a.level+" topshiriqlari "+EXAM_GATE+"%+ (bajarildi: "+lpr.pct+"%, "+lpr.done+" / "+lpr.total+")"),
       h("div",{class:"chk"+(hasMoney?" ok":"")},h("span",null,hasMoney?"✓":"○"),"Hisobda "+money(next.price)+" (sizda "+money(a.balance)+")"),
       h("button",{class:"chk"+(passed?" ok":""),onclick:hasExam(a.level)?function(){renderExamIntro(a.level);}:null},h("span",null,passed?"✓":"○"),a.level+" imtihoni "+EXAM_PASS+"%+ (eng yaxshi: "+best+"%)")),
+      h("p",{class:"hint"},"Imtihondan 100% olsangiz, "+next.id+" bepul ochiladi."),
       h("button",{class:"btn block",disabled:!(hasMoney&&passed),onclick:function(){confirmBuy(next);}},next.id+" "+TIERS[next.id].name+" darajasini sotib olish: "+money(next.price)));}
   var passedL=0; Object.keys(LESSONS).forEach(function(L){(LESSONS[L]||[]).forEach(function(l){if(prog(l.id).passed)passedL++;});});
   var kw=knownWords().length, examOk=Object.keys(a.examBest||{}).some(function(k){return a.examBest[k]>=EXAM_PASS;});
@@ -1485,6 +1491,13 @@ function buildExam(level){
   return shuffle(picked.concat(vq));
 }
 function hasExam(level){return qPool(level).length>0;}
+var EXAM_GATE=90;
+function levelProgress(L){
+  var ls=LESSONS[L]||[], ss=VOCAB[L]||[], t=ls.length+ss.length;
+  var d=ls.filter(function(l){return prog(l.id).passed;}).length+ss.filter(function(x){return prog("v:"+x.id).passed;}).length;
+  return {done:d,total:t,pct:t?Math.floor(d*100/t):0};
+}
+function examReady(L){var a=cur();return PREVIEW||L!==a.level||levelProgress(L).pct>=EXAM_GATE;}
 
 function runTest(opts){
   // opts: {qs, title, minutes, onFinish(results), onQuit}
@@ -1519,7 +1532,12 @@ function renderExamIntro(level){
       h("div",{class:"exam-facts"},h("div",null,h("b",null,EXAM_Q),h("span",null,"savol")),h("div",null,h("b",null,EXAM_MIN),h("span",null,"daqiqa")),h("div",null,h("b",null,EXAM_PASS+"%"),h("span",null,"o'tish bali"))),
       h("p",null,"Savollar "+level+" darajasining barcha grammatika mavzulari va lug'atidan olinadi. Imtihon paytida javob to'g'ri yoki xatoligi ko'rsatilmaydi, natija oxirida chiqadi va qaysi mavzularni takrorlash kerakligi aytiladi."),
       h("p",{style:"color:var(--muted)"},best?"Eng yaxshi natijangiz: "+best+"%"+(best>=EXAM_PASS?" ✓ o'tilgan":""):"Hali topshirilmagan."+(PREVIEW?"":" Muvaffaqiyatsiz urinishdan keyin 10 daqiqa kutish kerak.")),
-      wait?h("button",{class:"btn block",disabled:true},"Qayta topshirish "+Math.ceil(wait/60000)+" daqiqadan keyin")
+      !examReady(level)?h("div",null,
+          h("p",{style:"font-weight:700"},"Imtihon "+level+" darajasidagi topshiriqlarning kamida "+EXAM_GATE+"% ini bajargandan keyin ochiladi."),
+          h("div",{class:"pbar",style:"margin:10px 0"},h("i",{style:"width:"+levelProgress(level).pct+"%"})),
+          h("p",{style:"color:var(--muted)"},"Hozir: "+levelProgress(level).pct+"% ("+levelProgress(level).done+" / "+levelProgress(level).total+" ta dars va lug'at to'plami)"),
+          h("button",{class:"btn block",disabled:true},"Avval topshiriqlarni bajaring"))
+      :wait?h("button",{class:"btn block",disabled:true},"Qayta topshirish "+Math.ceil(wait/60000)+" daqiqadan keyin")
           :h("button",{class:"btn block",onclick:function(){startExam(level);}},"Imtihonni boshlash")));
 }
 function startExam(level){
@@ -1533,12 +1551,12 @@ function examResult(level,res){
   a.examBest[level]=Math.max(a.examBest[level]||0,pct); if(!pass) a.examFail[level]=Date.now(); save();
   var weak={}; res.forEach(function(r){if(!r.ok){var k=r.q.topic;weak[k]=weak[k]||{n:0,lesson:r.q.lesson};weak[k].n++;}});
   var wl=Object.keys(weak).sort(function(x,y){return weak[y].n-weak[x].n;});
-  var i=levelIdx(level), next=LEVELS[i+1], canBuy=pass&&next&&a.level===level&&a.balance>=next.price;
+  var i=levelIdx(level), next=LEVELS[i+1], canBuy=false;
   show(h("div",{class:"result"},
     h("div",{class:"pct",style:"color:"+(pass?"var(--ok)":"var(--bad)")},pct+"%"),
     h("p",null,ok+" / "+res.length+" to'g'ri javob"),
     h("p",{style:"font-weight:700;color:var(--ink)"},pass?"Tabriklaymiz! "+level+" imtihonidan o'tdingiz.":"O'tish uchun "+EXAM_PASS+"% kerak edi. Quyidagi mavzularni takrorlang."),
-    pass&&next&&a.level===level?h("p",null,a.balance>=next.price?next.id+" darajasini sotib olishingiz mumkin.":next.id+" ni ochish uchun hisobingizda yana "+money(next.price-a.balance)+" kerak."):null),
+    pass&&next&&a.level===level?h("p",null,next.id+" darajasi ochildi!"):null),
     wl.length?h("div",{class:"lesson",style:"margin:22px auto 0;max-width:520px"},h("h3",{style:"margin:0 0 10px;font-family:var(--display)"},"Takrorlash kerak"),
       h("div",{class:"weak"},wl.slice(0,6).map(function(k){var w=weak[k];return h("button",{class:"weak-row",onclick:function(){if(w.lesson){viewLevel=level;renderLesson(w.lesson,"theory");}else{viewLevel=level;renderVocab();}}},h("span",null,k),h("em",null,w.n+" ta xato"));}))):null,
     h("div",{class:"result"},h("div",{class:"btns"},h("button",{class:"btn ghost",onclick:renderHome},"Bosh sahifa"),
@@ -1550,9 +1568,9 @@ function renderPlacementIntro(fromSignup){
   var a=cur();
   show(fromSignup?null:backBtn(renderHome),h("h1",{class:"page-title"},"🎯 Daraja aniqlash testi"),
     h("div",{class:"lesson"},
-      h("p",null,"Ingliz tilini biroz bilsangiz, A1 dan boshlashingiz shart emas. Test A1 dan boshlanadi va har daraja bo'yicha 30 ta savollik umumiy test beradi. Kamida 80% (24 ta) savolga to'g'ri javob bersangiz, keyingi darajaga o'tasiz."),
-      h("div",{class:"exam-facts"},h("div",null,h("b",null,"30"),h("span",null,"savol / daraja")),h("div",null,h("b",null,"80%"),h("span",null,"o'tish chegarasi")),h("div",null,h("b",null,"1"),h("span",null,"marta bepul ochish"))),
-      h("p",{style:"color:var(--muted)"},"Natijadagi daraja va undan oldingilari dollar to'lamasdan ochiladi. Bu imkoniyat bir marta beriladi."),
+      h("p",null,"Ingliz tilini biroz bilsangiz, A1 dan boshlashingiz shart emas. Test A1 darajasi bo'yicha 30 ta savoldan iborat. Kamida 80% (24 ta) savolga to'g'ri javob bersangiz, A1 ni o'tkazib, darhol A2 darslarini boshlaysiz."),
+      h("div",{class:"exam-facts"},h("div",null,h("b",null,"30"),h("span",null,"savol")),h("div",null,h("b",null,"80%"),h("span",null,"o'tish chegarasi")),h("div",null,h("b",null,"1"),h("span",null,"marta bepul ochish"))),
+      h("p",{style:"color:var(--muted)"},"A2 dollar to'lamasdan ochiladi. Bu imkoniyat bir marta beriladi."),
       h("button",{class:"btn block",onclick:startPlacement},"Testni boshlash"),
       h("button",{class:"btn ghost block",style:"margin-top:10px",onclick:function(){a.placementSkipped=true;save();renderHome();if(!a.seenHelp)setTimeout(openHelp,300);}},"A1 dan boshlayman")));
 }
@@ -1572,7 +1590,7 @@ function startPlacement(){ if(SERVER) return startPlacementS();
   block();
 }
 function placementResult(total,passedLast){
-  var a=cur(), last=total[total.length-1], rec=passedLast?last.level:last.level;
+  var a=cur(), last=total[total.length-1], rec=passedLast&&LEVELS[levelIdx(last.level)+1]?LEVELS[levelIdx(last.level)+1].id:last.level;
   var ri=levelIdx(rec), granted=!a.placement&&ri>levelIdx(a.level);
   a.placement={level:rec,date:new Date().toISOString()};
   if(granted){a.level=rec;a.unlocked=LEVELS.slice(0,ri+1).map(function(l){return l.id;});}
@@ -1605,7 +1623,7 @@ function buyLevelLocal(next){
   a.certs=a.certs||[]; a.certs.push({level:prev,score:a.examBest[prev],date:new Date().toISOString()});
   viewLevel=next.id; save(); refreshChip(); celebrate(next.id,prev);
 }
-function celebrate(level,prev,demo){
+function celebrate(level,prev,demo,noCert){
   var bg, cvs=h("canvas",{class:"confetti"}), raf;
   function close(){cancelAnimationFrame(raf);bg.remove();document.body.dataset.tier=lvl();renderHome();}
   document.body.dataset.tier=level;
@@ -1614,8 +1632,8 @@ function celebrate(level,prev,demo){
       h("p",{class:"cel-sub"},demo?"Namuna ko'rinishi":"Tabriklaymiz, "+cur().name+"!"),
       h("h1",null,"Siz "+TIERS[level].name+" darajasiga ko'tarildingiz"),
       h("p",null,level+" darajasining barcha darslari, mashqlari va lug'ati endi ochiq."),
-      h("div",{class:"btns",style:"display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px"},
-        h("button",{class:"btn ghost",onclick:function(){cancelAnimationFrame(raf);bg.remove();renderCert(prev,demo);}},"Sertifikat"),
+      h("div",{class:"btns",style:"display:grid;grid-template-columns:"+(noCert?"1fr":"1fr 1fr")+";gap:10px;margin-top:20px"},
+        noCert?null:h("button",{class:"btn ghost",onclick:function(){cancelAnimationFrame(raf);bg.remove();renderCert(prev,demo);}},"Sertifikat"),
         h("button",{class:"btn",onclick:close},"Davom etish"))));
   document.body.appendChild(bg);
   var ctx=cvs.getContext("2d"), cs=getComputedStyle(document.body), cols=["--pri","--sun","--gold","--teal"].map(function(v){return cs.getPropertyValue(v).trim()||"#fc0";});
