@@ -166,8 +166,8 @@ begin
           select distinct on (e.lesson_id) e.type, e.data, a.answer, a.why
             from content_exercises e
             join content_answers a on a.exercise_id = e.id
-            join content_lessons l on l.id = e.lesson_id
-           where l.level = L.level and l.track = 'grammar' and not l.review and l.published
+            join content_lessons cl on cl.id = e.lesson_id
+           where cl.level = L.level and cl.track = 'grammar' and not cl.review and cl.published
            order by e.lesson_id, random()) q
         order by random() limit 15
       loop v_items := v_items || jsonb_build_array(mw_item(r.type, r.data, r.answer, r.why)); end loop;
@@ -203,12 +203,12 @@ begin
     select created_at into v_last from exams where user_id = v_uid and level = v_level and score < 70 order by created_at desc limit 1;
     if v_last is not null and v_last > now() - interval '10 minutes' then raise exception 'cooldown'; end if;
     for r in select * from (
-        select e.type, e.data, a.answer, a.why, l.id lid, l.title,
-               row_number() over (partition by l.id order by random()) rn
+        select e.type, e.data, a.answer, a.why, cl.id lid, cl.title,
+               row_number() over (partition by cl.id order by random()) rn
           from content_exercises e
           join content_answers a on a.exercise_id = e.id
-          join content_lessons l on l.id = e.lesson_id
-         where l.level = v_level and l.track = 'grammar' and not l.review and l.published
+          join content_lessons cl on cl.id = e.lesson_id
+         where cl.level = v_level and cl.track = 'grammar' and not cl.review and cl.published
            and e.type in ('choose','fill','listen')) q
        where rn <= 2 order by random() limit 24
     loop
@@ -230,8 +230,8 @@ begin
     if mw_level_order(v_level) is null then raise exception 'invalid_input'; end if;
     for r in select e.type, e.data, a.answer, a.why from content_exercises e
                join content_answers a on a.exercise_id = e.id
-               join content_lessons l on l.id = e.lesson_id
-              where l.level = v_level and l.track = 'grammar' and not l.review and l.published
+               join content_lessons cl on cl.id = e.lesson_id
+              where cl.level = v_level and cl.track = 'grammar' and not cl.review and cl.published
                 and e.type in ('choose','fill')
               order by random() limit 5
     loop v_items := v_items || jsonb_build_array(mw_item(r.type, r.data, r.answer, r.why)); end loop;
