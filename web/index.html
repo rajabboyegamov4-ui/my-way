@@ -1551,12 +1551,12 @@ function examResult(level,res){
   a.examBest[level]=Math.max(a.examBest[level]||0,pct); if(!pass) a.examFail[level]=Date.now(); save();
   var weak={}; res.forEach(function(r){if(!r.ok){var k=r.q.topic;weak[k]=weak[k]||{n:0,lesson:r.q.lesson};weak[k].n++;}});
   var wl=Object.keys(weak).sort(function(x,y){return weak[y].n-weak[x].n;});
-  var i=levelIdx(level), next=LEVELS[i+1], canBuy=false;
+  var i=levelIdx(level), next=LEVELS[i+1], free=pct>=100, canBuy=pass&&!free&&next&&a.level===level&&a.balance>=next.price;
   show(h("div",{class:"result"},
     h("div",{class:"pct",style:"color:"+(pass?"var(--ok)":"var(--bad)")},pct+"%"),
     h("p",null,ok+" / "+res.length+" to'g'ri javob"),
     h("p",{style:"font-weight:700;color:var(--ink)"},pass?"Tabriklaymiz! "+level+" imtihonidan o'tdingiz.":"O'tish uchun "+EXAM_PASS+"% kerak edi. Quyidagi mavzularni takrorlang."),
-    pass&&next&&a.level===level?h("p",null,next.id+" darajasi ochildi!"):null),
+    pass&&next&&a.level===level?h("p",null,free?"100% xatosiz! "+next.id+" darajasi bepul ochildi!":a.balance>=next.price?next.id+" darajasini sotib olishingiz mumkin. 100% olsangiz bepul ochilar edi.":next.id+" ni ochish uchun hisobingizda yana "+money(next.price-a.balance)+" kerak. Yoki imtihonni 100% bilan topshiring."):null),
     wl.length?h("div",{class:"lesson",style:"margin:22px auto 0;max-width:520px"},h("h3",{style:"margin:0 0 10px;font-family:var(--display)"},"Takrorlash kerak"),
       h("div",{class:"weak"},wl.slice(0,6).map(function(k){var w=weak[k];return h("button",{class:"weak-row",onclick:function(){if(w.lesson){viewLevel=level;renderLesson(w.lesson,"theory");}else{viewLevel=level;renderVocab();}}},h("span",null,k),h("em",null,w.n+" ta xato"));}))):null,
     h("div",{class:"result"},h("div",{class:"btns"},h("button",{class:"btn ghost",onclick:renderHome},"Bosh sahifa"),

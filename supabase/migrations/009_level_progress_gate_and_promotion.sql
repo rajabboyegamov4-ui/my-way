@@ -1,7 +1,8 @@
 -- Daraja yakuni:
 -- * Imtihon (30 savol, 80%) faqat joriy darajadagi topshiriqlarning (grammatika darslari + lug'at to'plamlari)
 --   kamida 90% i o'tilgandan keyin ochiladi.
--- * Imtihondan o'tilsa keyingi daraja avtomatik ochiladi (dollar talab qilinmaydi), sertifikat yoziladi.
+-- * Imtihondan 100% bilan o'tilsa keyingi daraja bepul va avtomatik ochiladi, sertifikat yoziladi.
+--   80-99% bilan o'tilsa keyingi daraja avvalgidek dollar bilan sotib olinadi.
 
 create or replace function public.mw_level_progress(p_uid uuid, p_level text)
 returns int language sql stable security definer set search_path = public as $$
@@ -147,8 +148,9 @@ begin
     end if;
     insert into exams(user_id, level, score) values (v_uid, s.key, pct);
     perform mw_mark_activity(v_uid);
-    -- Imtihondan o'tsa va bu o'quvchining joriy darajasi bo'lsa: keyingi daraja avtomatik ochiladi
-    if pass then
+    -- 100% xatosiz bo'lsa va bu o'quvchining joriy darajasi bo'lsa: keyingi daraja bepul ochiladi.
+    -- 80-99% bo'lsa keyingi daraja buy_level orqali dollar bilan sotib olinadi.
+    if pct >= 100 then
       select * into p from profiles where id = v_uid for update;
       v_next := (array['A1','A2','B1','B2','C1','C2'])[mw_level_order(s.key) + 1];
       if p.level = s.key and v_next is not null then
