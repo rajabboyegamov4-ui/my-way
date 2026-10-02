@@ -819,7 +819,7 @@ var LEVELS=[
   {id:"C1",name:"Ilg'or",price:3800},{id:"C2",name:"Mukammal",price:4800}];
 var LMULT={A1:1,A2:1.5,B1:2,B2:2.5,C1:3,C2:3.5};
 function econSync(){var a=cur(),m=(a&&LMULT[a.level])||1;DAILY_CAP=Math.round(300*m);PLAN_BONUS=Math.round(100*m);}
-var PASS=80, EXAM_PASS=70, DAILY_CAP=300, FAST_MS=600;
+var PASS=80, EXAM_PASS=80, DAILY_CAP=300, FAST_MS=600;
 var MULT=[1,0.5,0.1];
 
 function F(q,a,opts,why){return {t:"fill",q:q,a:a,opts:opts,why:why};}
@@ -841,7 +841,7 @@ var SB=null, SERVER=false, UID=null, serverToday=null, SRV=null, onHome=false;
 try{ if(window.supabase&&window.supabase.createClient){ SB=window.supabase.createClient(SB_URL,SB_KEY); SERVER=true; } }catch(e){ SERVER=false; }
 function iso2d(x){var p=String(x).slice(0,10).split("-");return (+p[0])+"-"+(+p[1])+"-"+(+p[2]);}
 var ERRS={too_fast:"Juda tez! Bir necha soniyadan keyin qayta urinib ko'ring.",cooldown:"Imtihonni 10 daqiqadan keyin qayta topshirishingiz mumkin.",
- not_enough_money:"Hisobingizda yetarli dollar yo'q.",exam_required:"Avval daraja imtihonidan 70%+ oling.",freezes_full:"Muzlatishlar to'la.",
+ not_enough_money:"Hisobingizda yetarli dollar yo'q.",exam_required:"Avval daraja imtihonidan 80%+ oling.",freezes_full:"Muzlatishlar to'la.",
  plan_incomplete:"Reja hali 100% bajarilmagan.",not_available:"Bu mukofot hozir mavjud emas.",limit_reached:"Bugun 10 ta gap yozildi.",
  duplicate:"Bu gapni allaqachon yozgansiz.",word_missing:"Gapda berilgan so'z bo'lishi kerak.",invalid_input:"Ma'lumot noto'g'ri yuborildi.",
  not_authenticated:"Qaytadan tizimga kiring.",max_level:"Siz eng yuqori darajadasiz."};
@@ -1206,8 +1206,8 @@ function startPlacementS(){
     var L=LEVELS[li].id;
     runTestS("placement",L,{title:"Daraja aniqlash: "+tierLabel(L),minutes:0,onQuit:renderHome,onFinish:function(res,fin){
       var ok=fin.first_ok; total.push({level:L,ok:ok,n:fin.total});
-      if(ok>=4&&li<LEVELS.length-1){li++;block();}
-      else viaServer("apply_placement",{p_level:L},function(){placementResult(total,ok>=4);});
+      if(fin.pass&&li<LEVELS.length-1){li++;block();}
+      else viaServer("apply_placement",{p_level:L},function(){placementResult(total,fin.pass);});
     }});
   }
   block();
@@ -1550,8 +1550,8 @@ function renderPlacementIntro(fromSignup){
   var a=cur();
   show(fromSignup?null:backBtn(renderHome),h("h1",{class:"page-title"},"🎯 Daraja aniqlash testi"),
     h("div",{class:"lesson"},
-      h("p",null,"Ingliz tilini biroz bilsangiz, A1 dan boshlashingiz shart emas. Test A1 dan boshlanadi va har darajadan 5 tadan savol beradi. 5 tadan kamida 4 tasini to'g'ri topsangiz, keyingi darajaga o'tasiz."),
-      h("div",{class:"exam-facts"},h("div",null,h("b",null,"5–30"),h("span",null,"savol")),h("div",null,h("b",null,"~10"),h("span",null,"daqiqa")),h("div",null,h("b",null,"1"),h("span",null,"marta bepul ochish"))),
+      h("p",null,"Ingliz tilini biroz bilsangiz, A1 dan boshlashingiz shart emas. Test A1 dan boshlanadi va har daraja bo'yicha 30 ta savollik umumiy test beradi. Kamida 80% (24 ta) savolga to'g'ri javob bersangiz, keyingi darajaga o'tasiz."),
+      h("div",{class:"exam-facts"},h("div",null,h("b",null,"30"),h("span",null,"savol / daraja")),h("div",null,h("b",null,"80%"),h("span",null,"o'tish chegarasi")),h("div",null,h("b",null,"1"),h("span",null,"marta bepul ochish"))),
       h("p",{style:"color:var(--muted)"},"Natijadagi daraja va undan oldingilari dollar to'lamasdan ochiladi. Bu imkoniyat bir marta beriladi."),
       h("button",{class:"btn block",onclick:startPlacement},"Testni boshlash"),
       h("button",{class:"btn ghost block",style:"margin-top:10px",onclick:function(){a.placementSkipped=true;save();renderHome();if(!a.seenHelp)setTimeout(openHelp,300);}},"A1 dan boshlayman")));
