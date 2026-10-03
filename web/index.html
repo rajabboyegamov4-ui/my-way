@@ -601,6 +601,55 @@ html,body{overflow-x:hidden}
 .tsugg{padding:0 14px;margin:0}
 .tform{display:grid;grid-template-columns:1fr auto;gap:10px;padding:12px 14px;border-top:1.5px solid var(--line);align-items:end}
 .tin{min-height:48px;max-height:160px;resize:vertical}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin:0 0 12px;padding:12px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;font-size:15px;cursor:pointer}
+.gbtn:hover{border-color:var(--pri)}
+.auth>*{min-width:0}.stairs{width:100%}.stair{flex:1 1 0;min-width:0}.stair .price{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:520px){.stair .price{font-size:10px}}
+#mainNav{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;justify-content:space-around;background:var(--surface);border-top:1.5px solid var(--line);padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px))}
+#mainNav .nv{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;color:var(--muted);font:700 11px var(--body,inherit);padding:4px 0;cursor:pointer;border-radius:12px}
+#mainNav .nv.on{color:var(--pri)}
+#appView{padding-bottom:84px}
+#appView:has(.run) #mainNav,#appView:has(.tbox) #mainNav{display:none}
+@media (min-width:900px){body[data-view="desk"] #mainNav{top:0;bottom:0;right:auto;width:210px;flex-direction:column;justify-content:flex-start;gap:4px;padding:84px 14px 20px;border-top:0;border-right:1.5px solid var(--line)}
+ body[data-view="desk"] #mainNav .nv{flex:0;flex-direction:row;gap:12px;justify-content:flex-start;padding:11px 14px;font-size:15px}
+ body[data-view="desk"] #mainNav .nv.on{background:color-mix(in srgb,var(--pri) 10%,transparent)}
+ body[data-view="desk"] #appView{padding-left:210px;padding-bottom:0}}
+.greet2{margin:18px 0 12px}.greet2 .greet{margin:0;font-size:26px}.greet2 p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.exam-card{border-radius:24px;padding:18px 20px;color:#fff;background:linear-gradient(135deg,#D93A72,#E8692B);box-shadow:0 10px 30px -14px rgba(217,58,114,.6);margin-bottom:12px}
+.ec-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:15px}
+.ec-chip{background:rgba(255,255,255,.22);padding:5px 11px;border-radius:20px;font-weight:700;font-size:13px;white-space:nowrap}
+.ec-big{display:flex;align-items:baseline;gap:10px;margin:6px 0 4px}
+.ec-n{font-family:var(--display);font-weight:800;font-size:58px;line-height:1}
+.ec-l{font-family:var(--display);font-weight:800;font-size:22px}
+.ec-row{display:flex;justify-content:space-between;font-weight:700;font-size:13px;margin:6px 0}
+.ec-bar{height:8px;border-radius:6px;background:rgba(255,255,255,.28);overflow:hidden}.ec-bar i{display:block;height:100%;background:#fff;border-radius:6px}
+.exam-set{display:block;width:100%;text-align:left;border:1.5px dashed var(--line);background:var(--surface);border-radius:18px;padding:16px;font-weight:700;color:var(--pri);margin-bottom:12px;cursor:pointer}
+.cta{display:flex;align-items:center;gap:14px;width:100%;border:0;border-radius:20px;padding:14px 16px;background:#2A0D4F;color:#fff;text-align:left;cursor:pointer;margin-bottom:12px}
+.cta-play{width:44px;height:44px;border-radius:50%;background:#F5B53F;color:#2A0D4F;display:flex;align-items:center;justify-content:center;font-size:17px;flex:none}
+.cta-t{flex:1;min-width:0}.cta-t b{display:block;font-family:var(--display);font-size:17px}.cta-t span{display:block;font-size:13px;color:#CFC2F0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cta-go{font-size:26px;font-weight:800}
+.sec-h{display:flex;align-items:center;gap:10px;margin:18px 0 10px;font-size:18px}
+.tiles .tile .meta{margin-top:2px}
+.prof-h{display:flex;justify-content:space-between;align-items:center;margin:18px 0 12px}
+.card2{background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:16px;margin-bottom:12px}
+.card2 h3{margin:0 0 12px;font-family:var(--display);font-size:15px}
+.prow{display:flex;align-items:center;gap:14px}.prow b{display:block;font-size:17px}.prow small{color:var(--muted)}
+.pav{width:56px;height:56px;border-radius:50%;background:#E0457B;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:24px;flex:none}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.stats3>div{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+.stats3 b{display:block;font-family:var(--display);font-size:18px}.stats3 small{color:var(--muted);font-size:12px}
+.lpath{display:flex;justify-content:space-between;gap:6px;margin-bottom:14px}
+.lp{display:flex;flex-direction:column;align-items:center;gap:4px;border:0;background:none;padding:0;color:var(--muted);font-weight:700;cursor:default}
+button.lp{cursor:pointer}.lp-o{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;opacity:.45}
+.lp.open .lp-o,.lp.cur .lp-o{opacity:1}.lp.cur .lp-o{box-shadow:0 0 0 3px var(--pri)}.lp.cur{color:var(--pri)}.lp.nxt .lp-o{opacity:.8;outline:2px dashed var(--line);outline-offset:2px}
+.g3{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:10px}.g3 label{font-size:12px;font-weight:700;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+.row-end{display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-top:12px}
+.bdgs{display:flex;justify-content:space-between}.bdg{display:flex;flex-direction:column;align-items:center;gap:4px;opacity:.4}.bdg.on{opacity:1}
+.bdg span{width:52px;height:52px;border-radius:50%;background:#FFF4DC;display:flex;align-items:center;justify-content:center;font-size:24px}.bdg small{font-size:12px;font-weight:700;color:var(--muted)}
+.card2.menu{padding:4px 0}.mrow{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;padding:13px 16px;text-align:left;cursor:pointer;color:var(--ink);border-bottom:1.5px solid var(--line)}
+.mrow:last-child{border-bottom:0}.mrow b{flex:1}.mrow em{font-style:normal;color:var(--muted);font-size:20px}.mrow.danger b{color:var(--bad,#D8322B)}
+@media (min-width:900px){body[data-view="desk"] .tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.g3{grid-template-columns:1fr 1fr}.g3 label:first-child{grid-column:1/-1}.ec-n{font-size:50px}}
 /* theory */
 .lesson-tabs{max-width:420px}
 .lesson{max-width:760px}
@@ -691,6 +740,7 @@ select.search{appearance:auto}
 @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -732,6 +782,7 @@ select.search{appearance:auto}
           <div class="form-msg" id="logMsg" role="alert"></div>
         </form>
         <div class="tg-or"><span>yoki</span></div>
+        <button type="button" id="googleBtn" class="gbtn"><svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Google orqali kirish</button>
         <div id="tgLogin" class="tgw"></div>
         <p class="fine" id="tgMsg" style="text-align:center"></p>
       </div>
@@ -764,8 +815,10 @@ select.search{appearance:auto}
 /* =================== CONTENT =================== */
 var LEVELS=[
   {id:"A1",name:"Boshlang'ich",price:0},{id:"A2",name:"Elementar",price:1000},
-  {id:"B1",name:"O'rta",price:2000},{id:"B2",name:"Yuqori o'rta",price:3500},
-  {id:"C1",name:"Ilg'or",price:5000},{id:"C2",name:"Mukammal",price:7000}];
+  {id:"B1",name:"O'rta",price:1800},{id:"B2",name:"Yuqori o'rta",price:2800},
+  {id:"C1",name:"Ilg'or",price:3800},{id:"C2",name:"Mukammal",price:4800}];
+var LMULT={A1:1,A2:1.5,B1:2,B2:2.5,C1:3,C2:3.5};
+function econSync(){var a=cur(),m=(a&&LMULT[a.level])||1;DAILY_CAP=Math.round(300*m);PLAN_BONUS=Math.round(100*m);}
 var PASS=80, EXAM_PASS=70, DAILY_CAP=300, FAST_MS=600;
 var MULT=[1,0.5,0.1];
 
@@ -817,7 +870,7 @@ async function sync(){
     name:p.name, phone:p.phone||"", createdAt:p.created_at, pass:"",
     balance:p.balance, totalEarned:p.total_earned, level:p.level, unlocked:p.unlocked||["A1"],
     placement:p.placement_level?{level:p.placement_level,date:""}:null, placementSkipped:!!old.placementSkipped,
-    telegramId:p.telegram_id||null, telegramUsername:p.telegram_username||"", tgChat:!!p.tg_chat,
+    examDate:p.exam_date||null, examGoal:p.exam_goal||"7+", weeklyGoal:p.weekly_goal||7, telegramId:p.telegram_id||null, telegramUsername:p.telegram_username||"", tgChat:!!p.tg_chat,
     wp:p.wallpaper, notif:Object.assign({on:true,time:"20:00",streak:true,plan:true,reward:true,browser:false},p.notif||{}), seenHelp:!!p.seen_help,
     progress:st.progress||{}, known:known, examBest:st.examBest||{}, examFail:old.examFail||{},
     streak:{count:sk.count||0,best:sk.best||0,last:sk.last_day?iso2d(sk.last_day):"",freezes:sk.freezes||0},
@@ -1305,67 +1358,100 @@ var PLANNED={
  C2:["Subjunctive","Murakkab inversion","Ellipsis va substitution","Discourse markers","Idiomatik tuzilmalar","So'z yasalishi","Register va uslub"]};
 
 /* =================== HOME =================== */
-function renderHome(){
-  var a=cur(); if(!viewLevel) viewLevel=a.level;
-  var V=viewLevel, idx=LEVELS.findIndex(function(l){return l.id===a.level;}), next=LEVELS[idx+1];
+function renderHome(){econSync();
+  var a=cur(); if(!viewLevel) viewLevel=a.level; var V=viewLevel;
   if(a.daily.date!==today()) a.daily={date:today(),earned:0};
-  var hr=new Date().getHours(), hello=hr<12?"Xayrli tong":hr<18?"Xayrli kun":"Xayrli kech";
-  var fill=h("i"), lessons=LESSONS[V]||[], sets=VOCAB[V]||[], planned=PLANNED[V]||[];
-  var doneL=lessons.filter(function(l){return prog(l.id).passed;}).length;
-  var doneV=sets.filter(function(s){return prog("v:"+s.id).passed;}).length;
-  var soon="Tayyorlanmoqda";
-
-  var note=h("div",{class:"note"},
-    h("div",{class:"note-row"},h("div",null,h("div",{class:"label"},"Hisobingiz"),h("div",{class:"balance"},money(a.balance))),h("div",{class:"lvl-badge tc t-"+V},tierLabel(V))),
-    h("div",{class:"bar","aria-hidden":"true"},fill),
-    h("div",{class:"goal"},next?money(a.balance)+" / "+money(next.price)+". "+next.id+" darajasini ochish uchun yana "+money(Math.max(0,next.price-a.balance))+" kerak.":"Barcha darajalar ochilgan."),
-    h("div",{class:"daily"},"Bugun yig'ildi: "+money(a.daily.earned)+" / "+money(DAILY_CAP)),
-    V!==a.level?h("div",{class:"daily"},"Siz hozir "+tierLabel(V)+" darajasini ko'ryapsiz. Hisobingizdagi daraja: "+tierLabel(a.level)+"."):null);
-  requestAnimationFrame(function(){fill.style.width=(next?Math.min(100,Math.round(a.balance/next.price*100)):100)+"%";});
-
-  var videoOpen=PREVIEW;
+  var T=planTasks(), done=T.filter(function(t){return t.done;}).length, nxt=T.filter(function(t){return !t.done;})[0];
+  var sub=done===T.length?"Bugungi reja to'liq bajarildi. Barakalla! 🎉":done?"Bugun "+done+" ta vazifa bajarildi. Davom etamiz!":"Bugungi rejani boshlaymiz. Har kuni bitta qadam!";
+  var lessons=LESSONS[V]||[];
   var tiles=h("div",{class:"tiles"},
-    h("button",{class:"tile",style:"--c:var(--pri)",onclick:renderLessons},h("span",{class:"ico"},"📘"),h("b",null,"Grammatika"),h("span",null,(lessons.length?lessons.map(function(l){return l.title;}):planned).slice(0,3).join(", ")+" va boshqalar"),h("span",{class:"meta"},lessons.length?lessons.length+" ta mavzu":planned.length+" ta mavzu. "+soon)),
-    h("button",{class:"tile",style:"--c:#7B3FE4",onclick:renderPractice},h("span",{class:"ico"},"🧩"),h("b",null,"Mashqlar"),h("span",null,lessons.length?lessons.reduce(function(n,l){return n+exCount(l);},0)+" ta mashq, 6 xil turda":"Mavzular bilan birga tayyorlanmoqda"),h("span",{class:"meta"},lessons.length?doneL+" / "+lessons.length+" tugatildi":soon)),
-    h("button",{class:"tile",style:"--c:var(--teal)",onclick:renderVocab},h("span",{class:"ico"},"🔤"),h("b",null,"Lug'at"),h("span",null,sets.length?sets.map(function(x){return x.title;}).slice(0,3).join(", ")+" va boshqalar":"Bu daraja so'zlari tayyorlanmoqda"),h("span",{class:"meta"},sets.length?(function(){var k=knownMap(),t=0,n=0;sets.forEach(function(x){x.words.forEach(function(w){t++;if(k[V+":"+w[0]])n++;});});return n+" / "+t+" so'z o'rganildi";})():soon)),
-    h("button",{class:"tile",style:"--c:#E08A00",onclick:renderBlitzIntro},h("span",{class:"ico"},"⚡"),h("b",null,"So'z Blits"),h("span",null,(VOCAB[V]?V:"A1")+" so'zlari bilan 60 soniyalik o'yin"),h("span",{class:"meta"},"Rekord: "+a.blitz.best)),
-    SERVER?h("button",{class:"tile wide",style:"--c:#7B3FE4",onclick:function(){openTutor("");}},h("span",{class:"ico"},"🤖"),h("b",null,"AI ustoz"),h("span",null,"Tushunmagan mavzuni so'rang: grammatika, so'zlar, IELTS. Gapingizni yozsangiz, xatosini tushuntiradi."),h("span",{class:"meta"},"Kuniga 30 ta savol")):null,
-    h("button",{class:"tile",style:"--c:#1B8F5A",onclick:renderSpeaking},h("span",{class:"ico"},"🗣️"),h("b",null,"Speaking"),h("span",null,"Kundalik vaziyatlar uchun tayyor iboralar, talaffuz mashqi"),h("span",{class:"meta"},SPEAK.length+" ta mavzu")),
-    h("button",{class:"tile",style:"--c:#D6246E",onclick:renderIelts},h("span",{class:"ico"},"🎓"),h("b",null,"IELTS"),h("span",null,"Imtihon tuzilishi, Writing, Speaking, ball kalkulyatori"),h("span",{class:"meta"},IELTS.length+" ta dars va 2 ta vosita")),
-    h(hasExam(V)?"button":"div",{class:"tile"+(hasExam(V)?"":" soon-tile"),style:"--c:#2E7D32",onclick:hasExam(V)?function(){renderExamIntro(V);}:null},h("span",{class:"ico"},"📝"),h("b",null,V+" imtihoni"),h("span",null,EXAM_Q+" savol, "+EXAM_MIN+" daqiqa. O'tsangiz keyingi darajani sotib olasiz"),h("span",{class:"meta"},hasExam(V)?((a.examBest[V]||0)>=EXAM_PASS?"✓ O'tildi, "+a.examBest[V]+"%":a.examBest[V]?"Eng yaxshi: "+a.examBest[V]+"%":"O'tish uchun "+EXAM_PASS+"%"):soon)),
-    h("button",{class:"tile",style:"--c:#0E7AE0",onclick:function(){renderPlacementIntro(false);}},h("span",{class:"ico"},"🎯"),h("b",null,"Daraja aniqlash testi"),h("span",null,"Bilimingizni tekshiring va mos darajadan boshlang"),h("span",{class:"meta"},a.placement?"Natijangiz: "+tierLabel(a.placement.level):"Bir marta bepul ochish")),
-    videoOpen?h("button",{class:"tile wide",style:"--c:#C0392B",onclick:renderVideos},h("span",{class:"ico"},"🎬"),h("b",null,"Videodarslar"),h("span",null,"Ibrat Farzandlari videodarslari uchun joy. Hozircha tuzilma ko'rsatilgan."),h("span",{class:"meta"},"Kelishuv kutilmoqda"))
-      :h("div",{class:"tile wide locked"},h("span",{class:"ico",style:"--c:var(--muted)"},"🔒"),h("div",null,h("b",null,"Videodarslar"),h("span",{style:"display:block"},"Ibrat Farzandlari videodarslari. Hamkorlik kelishuvidan keyin ochiladi.")),h("span",{class:"tag"},"Tez orada")));
-
-  var ladder=h("div",{class:"ladder"});
-  LEVELS.forEach(function(l,i){
-    var open=PREVIEW||a.unlocked.indexOf(l.id)!==-1, isNext=!open&&i===idx+1, isView=V===l.id;
-    var r=h(open?"button":"div",{class:"rung"+(open?" open":isNext?" next":"")+(isView?" current":""),onclick:open?function(){viewLevel=l.id;renderHome();}:null},
-      h("div",{class:"code tc t-"+l.id},l.id),h("div",null,h("div",{class:"nm"},l.name+" "+TIERS[l.id].icon),h("div",{class:"sub"},TIERS[l.id].name+". "+(l.price?money(l.price):"Bepul"))),
-      h("div",{class:"st"},isView?"Ko'rilmoqda":open?"Ochiq":"🔒"));
-    ladder.appendChild(r);
-  });
-  var buy=null;
-  if(next){
-    var hasMoney=a.balance>=next.price, best=a.examBest[a.level]||0, passed=best>=EXAM_PASS, ready=hasMoney&&passed;
-    buy=h("div",{class:"buy"},
-      h("div",{class:"checks"},
-        h("div",{class:"chk"+(hasMoney?" ok":"")},h("span",null,hasMoney?"✓":"○"),"Hisobda "+money(next.price)+" (sizda "+money(a.balance)+")"),
-        h("button",{class:"chk"+(passed?" ok":""),onclick:hasExam(a.level)?function(){renderExamIntro(a.level);}:null},h("span",null,passed?"✓":"○"),a.level+" imtihoni "+EXAM_PASS+"%+ (eng yaxshi: "+best+"%)")),
-      h("button",{class:"btn block",disabled:!ready,onclick:function(){confirmBuy(next);}},next.id+" "+TIERS[next.id].name+" darajasini sotib olish: "+money(next.price)),
-      PREVIEW?h("button",{class:"linkbtn",onclick:function(){celebrate(next.id,a.level,true);}},"Ko'rib chiqish: tabrik oynasini ko'rish"):null);
-  }
-  show(h("div",{class:"greet-row"},h("div",{class:"greet"},hello+", "+a.name+"!"),h("div",{class:"greet-btns"},viewToggle(),h("button",{class:"btn ghost",onclick:renderStats,title:"Natijalarim"},"📊",h("span",{class:"gl"}," Natijalarim")),h("button",{class:"btn ghost",onclick:openHelp,title:"Qanday ishlaydi"},"❓",h("span",{class:"gl"}," Qanday ishlaydi")))),
-    PREVIEW?h("div",{class:"banner",style:"margin:0 0 16px"},"Ko'rib chiqish rejimi: barcha darajalar va bo'limlar vaqtincha ochiq. Darajani almashtirish uchun Darajalar ro'yxatidan tanlang."):null,
-    note,
+    h("button",{class:"tile",style:"--c:#E0457B",onclick:renderPractice},h("span",{class:"ico"},"🧩"),h("b",null,"Mashqlar"),h("span",{class:"meta"},lessons.length?"6 xil tur":"Tez orada")),
+    h("button",{class:"tile",style:"--c:#E8692B",onclick:renderBlitzIntro},h("span",{class:"ico"},"⚡"),h("b",null,"So'z Blits"),h("span",{class:"meta"},"Rekord: "+a.blitz.best)),
+    h("button",{class:"tile",style:"--c:#19B8A8",onclick:renderSpeaking},h("span",{class:"ico"},"🗣️"),h("b",null,"Speaking"),h("span",{class:"meta"},SPEAK.length+" ta mavzu")),
+    h(hasExam(V)?"button":"div",{class:"tile"+(hasExam(V)?"":" soon-tile"),style:"--c:#5B2BC9",onclick:hasExam(V)?function(){renderExamIntro(V);}:null},h("span",{class:"ico"},"📝"),h("b",null,V+" imtihoni"),h("span",{class:"meta"},(a.examBest[V]||0)>=EXAM_PASS?"✓ O'tildi, "+a.examBest[V]+"%":"O'tish: "+EXAM_PASS+"%")),
+    h("button",{class:"tile",style:"--c:#D6246E",onclick:renderIelts},h("span",{class:"ico"},"🎓"),h("b",null,"IELTS"),h("span",{class:"meta"},IELTS.length+" dars, 2 vosita")),
+    h("button",{class:"tile",style:"--c:#0E7AE0",onclick:function(){renderPlacementIntro(false);}},h("span",{class:"ico"},"🎯"),h("b",null,"Daraja testi"),h("span",{class:"meta"},a.placement?tierLabel(a.placement.level):"Bir marta bepul")));
+  show(
+    h("div",{class:"greet2"},h("h1",{class:"greet"},"Salom, "+a.name+" 👋"),h("p",null,sub)),
+    examCard(a),
+    nxt?h("button",{class:"cta",onclick:nxt.go},h("span",{class:"cta-play"},"▶"),h("span",{class:"cta-t"},h("b",null,"Davom etish"),h("span",null,nxt.t)),h("span",{class:"cta-go"},"›")):null,
     todayPanel(),
-    h("div",{class:"grid"},h("div",null,h("h2",null,V+" bo'limlari",h("span",{class:"tier-pill tc t-"+V},TIERS[V].icon+" "+TIERS[V].name)),tiles),h("div",null,h("h2",null,"Darajalar"),ladder,buy)),
-    h("div",{class:"profile"},h("div",null,h("span",null,"Ism"),h("b",null,a.name)),(a.phone?h("div",null,h("span",null,"Telefon"),h("b",null,maskPhone(a.phone))):h("div",null,h("span",null,"Telegram"),h("b",null,a.telegramUsername?"@"+a.telegramUsername:"ulangan"))),
-      SERVER?h("div",null,h("span",null,"Telegram eslatmalari"),h("b",null,a.telegramId?(a.tgChat?"✅ yoqilgan":"botga /start yozing"):h("button",{class:"linkbtn",style:"margin:0",onclick:openNotifSettings},"Ulash"))):null,
-      h("div",null,h("span",null,"Ro'yxatdan o'tgan"),h("b",null,uzDate(a.createdAt)))),
+    h("h2",{class:"sec-h"},"Mashq qilish",h("span",{class:"tier-pill tc t-"+V},TIERS[V].icon+" "+V)),
+    tiles,
     storageOk?null:h("div",{class:"banner"},"Brauzeringiz ma'lumot saqlashga ruxsat bermayapti. Akkaunt sahifa yopilguncha ishlaydi."));
-  onHome=true;
+  onHome=true; navSet(0);
 }
+function weekDone(a){var n=0,d=new Date(),wd=(d.getDay()+6)%7;for(var i=0;i<=wd;i++){var x=new Date();x.setDate(x.getDate()-i);if(a.activeDays.indexOf(dStr(x))!==-1)n++;}return n;}
+function examCard(a){
+  if(!a.examDate) return h("button",{class:"exam-set",onclick:renderProfile},"🎯 Imtihon sanangizni va maqsadingizni belgilang ›");
+  var d=new Date(a.examDate+"T00:00:00"), t=new Date(); t.setHours(0,0,0,0);
+  var days=Math.round((d-t)/86400000), wg=a.weeklyGoal||7, wn=Math.min(wg,weekDone(a));
+  var M=["yanvar","fevral","mart","aprel","may","iyun","iyul","avgust","sentabr","oktabr","noyabr","dekabr"];
+  var fill=h("i",{style:"width:"+Math.round(wn/wg*100)+"%"});
+  return h("div",{class:"exam-card"},
+    h("div",{class:"ec-top"},h("b",null,"🎯 IELTS imtihoni · "+d.getDate()+"-"+M[d.getMonth()]),h("span",{class:"ec-chip"},"Maqsad: "+(a.examGoal||"7+"))),
+    days>=0?h("div",{class:"ec-big"},h("span",{class:"ec-n"},String(days)),h("span",{class:"ec-l"},days===0?"Bugun imtihon! Omad! 🍀":"kun qoldi"))
+      :h("div",{class:"ec-big"},h("span",{class:"ec-l"},"Imtihon o'tdi. Yangi sanani belgilang")),
+    h("div",{class:"ec-row"},h("span",null,"Bu hafta: "+wn+" / "+wg+" kun dars"),h("span",null,Math.round(wn/wg*100)+"%")),
+    h("div",{class:"ec-bar"},fill));
+}
+function renderProfile(){
+  var a=cur(), idx=LEVELS.findIndex(function(l){return l.id===a.level;}), next=LEVELS[idx+1], s=stk();
+  var fill=h("i");
+  requestAnimationFrame(function(){fill.style.width=(next?Math.min(100,Math.round(a.balance/next.price*100)):100)+"%";});
+  var note=h("div",{class:"note"},
+    h("div",{class:"note-row"},h("div",null,h("div",{class:"label"},"Hisobingiz"),h("div",{class:"balance"},money(a.balance))),h("div",{class:"lvl-badge tc t-"+a.level},tierLabel(a.level))),
+    h("div",{class:"bar","aria-hidden":"true"},fill),
+    h("div",{class:"goal"},next?next.id+" "+TIERS[next.id].name+" ochilishiga "+money(Math.max(0,next.price-a.balance))+" qoldi":"Barcha darajalar ochilgan."),
+    h("div",{class:"daily"},"Bugun yig'ildi: "+money(a.daily.date===today()?a.daily.earned:0)+" / "+money(DAILY_CAP)));
+  var path=h("div",{class:"lpath"});
+  LEVELS.forEach(function(l,i){var open=a.unlocked.indexOf(l.id)!==-1, cur_=l.id===a.level, isNext=i===idx+1;
+    path.appendChild(h(open?"button":"div",{class:"lp"+(cur_?" cur":open?" open":isNext?" nxt":""),title:l.name+" "+TIERS[l.id].name,onclick:open?function(){viewLevel=l.id;renderHome();}:null},h("span",{class:"lp-o tc t-"+l.id},TIERS[l.id].icon),h("small",null,l.id)));});
+  var buy=null;
+  if(next){var hasMoney=a.balance>=next.price, best=a.examBest[a.level]||0, passed=best>=EXAM_PASS;
+    buy=h("div",{class:"buy"},h("div",{class:"checks"},
+      h("div",{class:"chk"+(hasMoney?" ok":"")},h("span",null,hasMoney?"✓":"○"),"Hisobda "+money(next.price)+" (sizda "+money(a.balance)+")"),
+      h("button",{class:"chk"+(passed?" ok":""),onclick:hasExam(a.level)?function(){renderExamIntro(a.level);}:null},h("span",null,passed?"✓":"○"),a.level+" imtihoni "+EXAM_PASS+"%+ (eng yaxshi: "+best+"%)")),
+      h("button",{class:"btn block",disabled:!(hasMoney&&passed),onclick:function(){confirmBuy(next);}},next.id+" "+TIERS[next.id].name+" darajasini sotib olish: "+money(next.price)));}
+  var passedL=0; Object.keys(LESSONS).forEach(function(L){(LESSONS[L]||[]).forEach(function(l){if(prog(l.id).passed)passedL++;});});
+  var kw=knownWords().length, examOk=Object.keys(a.examBest||{}).some(function(k){return a.examBest[k]>=EXAM_PASS;});
+  var dIn=h("input",{type:"date",class:"search",value:a.examDate||""}), gSel=h("select",{class:"search"}), wSel=h("select",{class:"search"});
+  ["5.5","6","6.5","7+","7.5+","8+"].forEach(function(g){var o=h("option",{value:g},g);if(g===(a.examGoal||"7+"))o.selected=true;gSel.appendChild(o);});
+  [3,4,5,6,7].forEach(function(n){var o=h("option",{value:String(n)},n+" kun");if(n===(a.weeklyGoal||7))o.selected=true;wSel.appendChild(o);});
+  var msg=h("span",{class:"hint"});
+  var goalBox=h("div",{class:"card2"},h("h3",null,"🎯 Imtihon va maqsad"),
+    h("div",{class:"g3"},h("label",null,"Imtihon sanasi",dIn),h("label",null,"Maqsad (IELTS)",gSel),h("label",null,"Haftada",wSel)),
+    h("div",{class:"row-end"},msg,h("button",{class:"btn",onclick:async function(){
+      a.examDate=dIn.value||null; a.examGoal=gSel.value; a.weeklyGoal=+wSel.value; save();
+      try{ if(SERVER&&UID){var r=await SB.from("profiles").update({exam_date:a.examDate,exam_goal:a.examGoal,weekly_goal:a.weeklyGoal}).eq("id",UID); if(r.error) throw r.error;} msg.textContent="✅ Saqlandi"; }catch(e){ msg.textContent="Saqlab bo'lmadi: "+errText(e); }
+    }},"Saqlash")));
+  function badge(ic,l,on){return h("div",{class:"bdg"+(on?" on":"")},h("span",null,ic),h("small",null,l));}
+  function row(ic,l,fn,cls){return h("button",{class:"mrow"+(cls?" "+cls:""),onclick:fn},h("span",null,ic),h("b",null,l),h("em",null,"›"));}
+  show(
+    h("div",{class:"prof-h"},h("h1",{class:"page-title",style:"margin:0"},"Profil"),viewToggle()),
+    h("div",{class:"card2 prow"},h("span",{class:"pav"},(a.name||"?").charAt(0).toUpperCase()),h("div",null,h("b",null,a.name),h("small",null,a.phone?maskPhone(a.phone):(a.telegramUsername?"@"+a.telegramUsername:"")))),
+    note,
+    h("div",{class:"stats3"},h("div",null,h("span",null,"🔥"),h("b",null,(s.count||0)+" kun"),h("small",null,"seriya")),h("div",null,h("span",null,"🔤"),h("b",null,String(kw)),h("small",null,"so'z")),h("div",null,h("span",null,"📘"),h("b",null,String(passedL)),h("small",null,"dars"))),
+    h("div",{class:"card2"},h("h3",null,"Darajalar yo'li"),path,buy||h("p",{class:"hint"},"Siz eng yuqori darajadasiz.")),
+    goalBox,
+    h("div",{class:"card2"},h("h3",null,"Nishonlar"),h("div",{class:"bdgs"},badge("🔥","7 kun",(s.best||0)>=7),badge("📘","5 dars",passedL>=5),badge("🔤","50 so'z",kw>=50),badge("🏆","Imtihon",examOk))),
+    h("div",{class:"card2 menu"},
+      SERVER?row("✈️",a.telegramId?"Telegram ulangan"+(a.telegramUsername?": @"+a.telegramUsername:""):"Telegramni ulash",openNotifSettings):null,
+      row("📊","Natijalarim",renderStats),row("🔔","Eslatmalar",openNotifSettings),row("🎨","Fon",openWallPicker),row("❓","Qanday ishlaydi",openHelp),
+      row("🚪","Chiqish",function(){var b=$("logoutBtn"); if(b) b.click();},"danger")),
+    h("p",{class:"hint",style:"text-align:center"},"Ro'yxatdan o'tgan: "+uzDate(a.createdAt)));
+  navSet(4);
+}
+var NAV_ITEMS=[["Bosh",'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',function(){renderHome();}],
+  ["Darslar",'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',function(){renderLessons();navSet(1);}],
+  ["Lug'at",'<path d="M12 2 2 7l10 5 10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/>',function(){renderVocab();navSet(2);}],
+  ["AI ustoz",'<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',function(){if(typeof openTutor==="function"&&SERVER){openTutor("");navSet(3);}else toast("AI ustoz faqat serverga ulangan holatda ishlaydi.");}],
+  ["Profil",'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',function(){renderProfile();}]];
+function buildNav(){ if($("mainNav")) return; var n=document.createElement("nav"); n.id="mainNav"; n.setAttribute("aria-label","Asosiy menyu");
+  NAV_ITEMS.forEach(function(it,i){var b=document.createElement("button"); b.type="button"; b.className="nv"; b.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+it[1]+'</svg><span></span>'; b.querySelector("span").textContent=it[0]; b.onclick=it[2]; n.appendChild(b);});
+  var av=$("appView"); if(av) av.appendChild(n); }
+function navSet(i){ buildNav(); var bs=document.querySelectorAll("#mainNav .nv"); for(var k=0;k<bs.length;k++){bs[k].classList.toggle("on",k===i); bs[k].setAttribute("aria-current",k===i?"page":"false");} }
+
 function plannedList(V){
   var list=h("div",{class:"list"});
   (PLANNED[V]||[]).forEach(function(t,i){
@@ -1880,8 +1966,8 @@ setInterval(checkReminder,60000);
 /* =================== HELP & STATS =================== */
 function openHelp(){
   var bg; function close(){var a=cur();if(a){a.seenHelp=true;save();profileUpdate({seen_help:true});}bg.remove();}
-  var steps=[["📘","O'qing va mashq qiling","Har dars, mashq, kartochka va o'yin hisobingizga dollar qo'shadi. Kuniga ko'pi bilan $300."],
-    ["📋","Kunlik rejani bajaring","6 ta vazifa: yangi dars, takror, so'zlar, gap tuzish va o'yin. 100% bajarsangiz +$100."],
+  var steps=[["📘","O'qing va mashq qiling","Har dars, mashq, kartochka va o'yin hisobingizga dollar qo'shadi. Yuqori darajalarda mukofot ko'proq."],
+    ["📋","Kunlik rejani bajaring","6 ta vazifa: yangi dars, takror, so'zlar, gap tuzish va o'yin. 100% bajarsangiz katta bonus olasiz."],
     ["🔥","Seriyani uzmang","Har kuni kamida bitta mashq. 3, 7, 14, 30 kunlik seriyalar uchun bonus."],
     ["📝","Imtihondan o'ting","Daraja imtihonidan 70%+ oling. Xato qilgan mavzularingiz ko'rsatiladi."],
     ["🥉","Keyingi darajani sotib oling","Yetarli dollar va o'tilgan imtihon bilan yangi daraja ochiladi: Temirdan Olmosgacha."]];
@@ -2076,7 +2162,7 @@ function renderCue(n){
 }
 
 function backBtn(fn,label){return h("button",{class:"back",onclick:fn},"‹ "+(label||"Bosh sahifa"));}
-function rewardHint(key,base){var m=multFor(key);return "Keyingi o'tishda: "+money(Math.round(base*m))+" gacha";}
+function rewardHint(key,base){var m=multFor(key)*(LMULT[lvl()]||1);return "Keyingi o'tishda: "+money(Math.round(base*m))+" gacha";}
 
 /* =================== LESSONS =================== */
 function lessonEx(l){
@@ -2411,7 +2497,7 @@ function renderBlitzIntro(){
     h("div",{class:"rules"},
       h("p",null,"60 soniya ichida inglizcha so'zning tarjimasini toping. Har to'g'ri javob 10 ball, ketma-ket to'g'ri javoblar ballni ko'paytiradi. Xato javob -5 ball."),
       h("div",{class:"mult"},h("span",null,"3 ketma-ket: ×2"),h("span",null,"6 ketma-ket: ×3"),h("span",null,"10 ketma-ket: ×5")),
-      h("p",null,"Har 20 ball uchun $1, bir o'yinda ko'pi bilan $30. Kuniga birinchi 3 o'yin to'liq dollar beradi, keyingilari yarmini."),
+      h("p",null,"Har 20 ball uchun $1, yuqori darajalarda ko'proq. O'yinlar uchun alohida kunlik limit bor."),
       h("p",{style:"color:var(--muted)"},"Eng yaxshi natijangiz: "+a.blitz.best+". Bugun o'ynaldi: "+a.blitz.plays),
       h("button",{class:"btn block",onclick:playBlitz},"Boshlash")));
 }
@@ -2487,7 +2573,26 @@ applyWall(sGet("mw_wp")||"daraja"); document.body.dataset.tier="A1";
 if(TTS){ try{speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=function(){};}catch(e){} }
 $("srvState").textContent=SERVER?"🟢 Server bilan ulangan: akkaunt istalgan qurilmada ishlaydi.":"🟠 Server kutubxonasi yuklanmadi, demo rejimida ishlayapti.";
 if(SERVER){ mountTgWidget($("tgLogin"),"onTelegramAuth"); } else { var tgo=document.querySelector(".tg-or"); if(tgo) tgo.remove(); }
-if(SERVER){ SB.auth.getSession().then(function(r){var ss=r&&r.data&&r.data.session; if(ss) startServerSession(ss.user.id);}); }
+var TWA=(window.Telegram&&window.Telegram.WebApp&&window.Telegram.WebApp.initData)?window.Telegram.WebApp:null;
+if(TWA){ try{TWA.ready();TWA.expand();}catch(e){} var gb0=$("googleBtn"); if(gb0) gb0.remove(); var tw=$("tgLogin"); if(tw) tw.remove(); var to=document.querySelector(".tg-or"); if(to) to.remove(); }
+if(SERVER&&$("googleBtn")) $("googleBtn").onclick=async function(){
+  $("tgMsg").textContent="Google'ga yo'naltirilmoqda...";
+  var r=await SB.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}});
+  if(r.error) $("tgMsg").textContent="Google orqali kirib bo'lmadi: "+errText(r.error);
+};
+if(!SERVER){ var gb1=$("googleBtn"); if(gb1) gb1.remove(); }
+async function webAppLogin(){
+  $("logMsg").textContent="Telegram orqali kirilmoqda...";
+  try{
+    var r=await SB.functions.invoke(TG_AUTH_FN,{body:{mode:"webapp",initData:TWA.initData}});
+    if(r.error) throw r.error;
+    var v=await SB.auth.verifyOtp({token_hash:r.data.token_hash,type:"magiclink"});
+    if(v.error) v=await SB.auth.verifyOtp({token_hash:r.data.token_hash,type:"email"});
+    if(v.error) throw v.error;
+    $("logMsg").textContent=""; await startServerSession(v.data.user.id);
+  }catch(e){ console.warn(e); $("logMsg").textContent="Telegram orqali avtomatik kirib bo'lmadi. Telefon va parol bilan kiring."; }
+}
+if(SERVER){ SB.auth.getSession().then(function(r){var ss=r&&r.data&&r.data.session; if(ss) startServerSession(ss.user.id); else if(TWA) webAppLogin();}); }
 else { var ses=sGet(K_SES); if(ses) openApp(ses); }
 })();
 </script>
